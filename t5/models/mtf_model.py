@@ -327,6 +327,7 @@ class MtfModel(T5Model):
       gin.parse_config_file(_operative_config_path(self._model_dir))
       gin.bind_parameter("Bitransformer.decode.beam_size", beam_size)
       gin.bind_parameter("Bitransformer.decode.temperature", temperature)
+      gin.bind_parameter("tpu_estimator_model_fn.score_in_predict_mode", False)      
 
     if vocabulary is None:
       vocabulary = t5.data.get_default_vocabulary()
@@ -360,6 +361,8 @@ class MtfModel(T5Model):
 
     with gin.unlock_config():
       gin.parse_config_file(_operative_config_path(self._model_dir))
+      gin.bind_parameter("tpu_estimator_model_fn.score_in_predict_mode", True)
+
 
     if vocabulary is None:
       vocabulary = t5.data.get_default_vocabulary()
@@ -402,6 +405,7 @@ class MtfModel(T5Model):
       gin.parse_config_file(_operative_config_path(self._model_dir))
       gin.bind_parameter("Bitransformer.decode.beam_size", beam_size)
       gin.bind_parameter("Bitransformer.decode.temperature", temperature)
+      gin.bind_parameter("tpu_estimator_model_fn.score_in_predict_mode", False)
 
     if vocabulary is None:
       vocabulary = t5.data.get_default_vocabulary()
