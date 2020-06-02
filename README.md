@@ -42,7 +42,7 @@ Each `Task` is made up of:
 Additionally, you may optionally provide:
 
   * token preprocessor function(s)
-  * a postprocess function
+  * postprocess function(s)
 
 The **data source** can be an arbitrary function that provides a `tf.data.Dataset`, but we also provide simpler wrappers for datasets available in [TensorFlow Datasets (TFDS)][tfds] (a `TfdsTask`) or stored as text files with one example per line (a `TextLineTask`).
 
@@ -62,7 +62,7 @@ In additon to text preprocessing, you can also use one or more **token preproces
 
 We provide many predefined preprocessors in `t5.data.preprocessors`, but you may also define your own.
 
-The **SentencePiece model** is used to tokenize the input strings and decode the output tokens. You can create your own model with the [google/sentencepiece](https://github.com/google/sentencepiece) library, or use our default one at `t5.data.DEFAULT_SPM_PATH`.
+The **SentencePiece model** is used to tokenize the input strings and decode the output tokens. You can create your own model with the [google/sentencepiece](https://github.com/google/sentencepiece) library, or use our default one at `t5.data.DEFAULT_SPM_PATH`. If you create your own, you must use the flags `--pad_id=0 --eos_id=1 --unk_id=2` with `spm_train` to be compatible with our model code.
 
 The **metric function** returns a score given the target and prediction from the model. You may also define a **postprocess function** to convert the target and prediction text to another format before calling the metric. We provide some predefined metrics in `t5.evaluation.metrics`.
 
@@ -318,6 +318,13 @@ t5_mesh_transformer \
   --use_model_api \
   --mode="export" \
   --export_dir="/path/to/export/dir"
+```
+
+The command above exports the latest checkpoint in the model directory. To export a particular checkpoint, add the following flags:
+
+```sh
+  --checkpoint_mode="specific" \
+  --checkpoint_steps=1000000
 ```
 
 ### GPU Usage
