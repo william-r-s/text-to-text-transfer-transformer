@@ -1,6 +1,6 @@
 # T5: Text-To-Text Transfer Transformer
 
-[![Build Status](https://travis-ci.org/google-research/text-to-text-transfer-transformer.svg?branch=master)](https://travis-ci.org/google-research/text-to-text-transfer-transformer)
+[![Build Status](https://github.com/google-research/text-to-text-transfer-transformer/workflows/build/badge.svg)](https://github.com/google-research/text-to-text-transfer-transformer/actions?query=workflow%3Abuild)
 
 T5 serves primarily as code for reproducing the experiments in [_Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer_][paper]. In the paper, we demonstrate how to achieve state-of-the-art results on multiple NLP tasks using a text-to-text transformer pre-trained on a large text corpus.
 
@@ -23,7 +23,6 @@ T5 can be used as a library for future model development by providing useful mod
   * [Decode](#decode)
   * [Export](#export)
   * [GPU Usage](#gpu-usage)
-  * [Google Usage](#google-usage)
 * [Released Model Checkpoints](#released-model-checkpoints)
 * [How to Cite](#how-to-cite)
 
@@ -266,6 +265,7 @@ t5_mesh_transformer \
   --t5_tfds_data_dir=${DATA_DIR} \
   --gin_file="eval.gin" \
   --gin_file="beam_search.gin" \
+  --gin_param="run.dataset_split = 'validation'" \
   --gin_param="utils.tpu_mesh_shape.tpu_topology = '2x2'" \
   --gin_param="MIXTURE_NAME = 'glue_mrpc_v002'" \
   --gin_param="eval_checkpoint_step = 'all'"
